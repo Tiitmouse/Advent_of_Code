@@ -6,58 +6,56 @@
 
 using namespace std;
 
-void read_locations(vector<int> &group_1, vector<int> &group_2) {
-    ifstream file("location_ids.txt");
+void read_rotations(vector<string> &rotations){
+    ifstream file("/Users/lorena/desktop/rotations.txt");
     if (!file) {
-        cout << "oof";
+        cout << "ho ho hhooo oof";
         return;
     }
+    cout << "reading rotations..." << endl;
     string line;
     while (getline(file, line)){
-        stringstream ss(line);
-        int num1, num2;
-        ss >> num1 >> num2;
-        group_1.push_back(num1);
-        group_2.push_back(num2);
+        rotations.push_back(line);
     }
-    sort(group_1.begin(), group_1.end());
-    sort(group_2.begin(), group_2.end());
+    cout << "rotations read..." << endl;
 }
 
-void calculate_total_distance(vector<int> &group_1, vector<int> &group_2) {
-    int total_distance = 0;
-    for (int i = 0; i < group_1.size(); i++) {
-        total_distance += abs(group_1[i] - group_2[i]);
-    }
-    cout << "Total distance: " << total_distance << endl;
-}
+int dial(vector<string> &rotations) {
+    cout << "rotation dials..." << endl;
+    int min = 0, max = 99, point = 50, zeros = 0;
 
-void calculate_similarity_score(vector<int> &group_1, vector<int> &group_2) {
-    int similarity_score = 0;
-    for (int i = 0; i < group_1.size(); i++) {
-        int number_of_appearances = 0;
-        for (int j = 0; j < group_2.size(); j++) {
-            if (group_1[i] == group_2[j]) {
-                number_of_appearances++;
+    for (const string &rotation : rotations) {
+        char direction = rotation[0];
+        int steps = stoi(rotation.substr(1));
+
+        if (direction == 'R') {
+            point -= steps;
+            while (point < min) {
+                point += (max + 1);
+            }
+        } else if (direction == 'L') {
+            point += steps;
+            while (point > max) {
+                point -= (max + 1);
             }
         }
-        if (number_of_appearances != 0) {
-            similarity_score += group_1[i] * number_of_appearances;
+
+        if (point == 0) {
+            zeros++;
         }
     }
-    cout << "Similarity score: " << similarity_score << endl;
+    cout << "all dials rotated..." << endl;
+    return zeros;
 }
 
+
 int main() {
-    vector<int> group_1; // {3, 4, 2, 1, 3, 3};
-    vector<int> group_2; // {4, 3, 5, 3, 9, 3};
-    read_locations(group_1, group_2);
-    calculate_total_distance(group_1, group_2);
-    // 1882714
-    calculate_similarity_score(group_1, group_2);
-    // 19437052
+    vector<string> rotations;
+    read_rotations(rotations);
+    int password = dial(rotations);
+    cout << "password is : " << password << endl;
+
     return 0;
-    // code to maybe join 4214237-2e829851
 }
 
 
