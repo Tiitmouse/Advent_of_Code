@@ -20,7 +20,7 @@ void read_rotations(vector<string> &rotations){
     cout << "rotations read..." << endl;
 }
 
-int dial(vector<string> &rotations) {
+int dialZeroPoints(vector<string> &rotations) {
     cout << "rotation dials..." << endl;
     int min = 0, max = 99, point = 50, zeros = 0;
 
@@ -28,32 +28,62 @@ int dial(vector<string> &rotations) {
         char direction = rotation[0];
         int steps = stoi(rotation.substr(1));
 
-        if (direction == 'R') {
+        if (direction == 'L') {
             point -= steps;
             while (point < min) {
                 point += (max + 1);
             }
-        } else if (direction == 'L') {
+        } else if (direction == 'R') {
             point += steps;
             while (point > max) {
                 point -= (max + 1);
             }
         }
-
         if (point == 0) {
             zeros++;
         }
+
     }
     cout << "all dials rotated..." << endl;
     return zeros;
 }
 
+int dialZeroHits(vector<string> &rotations) {
+    cout << "rotation dials..." << endl;
+    int min = 0, max = 99, point = 50, zeros = 0;
+
+    for (const string &rotation : rotations) {
+        char direction = rotation[0];
+        int steps = stoi(rotation.substr(1));
+
+        if (direction == 'L') {
+            point -= steps;
+            while (point < min) {
+                point += (max + 1);
+                cout << "zeros hit" << endl;
+                zeros++;
+            }
+        } else if (direction == 'R') {
+            point += steps;
+            while (point > max) {
+                point -= (max + 1);
+                cout << "zeros hit" << endl;
+                zeros++;
+            }
+        }
+
+    }
+    cout << "all dials rotated..." << endl;
+    return zeros;
+}
 
 int main() {
     vector<string> rotations;
     read_rotations(rotations);
-    int password = dial(rotations);
-    cout << "password is : " << password << endl;
+    int Ppassword = dialZeroPoints(rotations);
+    int Hpassword = dialZeroHits(rotations);
+    cout << "0 amount password is : " << Ppassword << endl;
+    cout << "0x434C49434B password is : " << Hpassword << endl;
 
     return 0;
 }
