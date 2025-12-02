@@ -33,9 +33,8 @@ void read_ranges(vector<pair<long long, long long>> &ranges) {
     cout << "ranges read..." << endl;
 }
 
-long long invaliIdSum(vector<pair<long long, long long>> &ranges) {
+long long invaliIdSum_sq2(vector<pair<long long, long long>> &ranges) {
     long long iidsum = 0;
-    cout << "finding invalid ids..." << endl;
 
     for (const auto &range : ranges) {
         long long start = range.first;
@@ -50,15 +49,35 @@ long long invaliIdSum(vector<pair<long long, long long>> &ranges) {
             }
         }
     }
+    return iidsum;
+}
 
-    cout << "invalid ids found..." << endl;
+long long invaliIdSum_sq2m(vector<pair<long long, long long>> &ranges) {
+    long long iidsum = 0;
+
+    for (const auto &range : ranges) {
+        long long start = range.first;
+        long long end = range.second;
+
+        for (long long id = start; id <= end; ++id) {
+            string id_str = to_string(id);
+
+            regex pattern(R"((\d+)\1+)");
+            if (regex_match(id_str, pattern)) {
+                iidsum += id;
+            }
+        }
+    }
     return iidsum;
 }
 
 int main() {
     vector<pair<long long, long long>> ranges;
     read_ranges(ranges);
-    long long sum = invaliIdSum(ranges);
-    cout << "sum of invalid ids: " << sum << endl;
+    cout << "finding invalid ids..." << endl;
+    long long sumsq2 = invaliIdSum_sq2(ranges);
+    cout << "sum of double sequence invalid ids: " << sumsq2 << endl;
+    long long sumsqm = invaliIdSum_sq2m(ranges);
+    cout << "sum of at least double sequence invalid ids: " << sumsqm << endl;
     return 0;
 }
