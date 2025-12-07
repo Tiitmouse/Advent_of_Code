@@ -12,3 +12,4 @@ add_executable(Day_04_24 2024/Day_04_24/main.cpp)
 # ❄ 2025 ❄
 add_executable(Day_01_25 2025/Day_01_25/main.cpp)
 add_executable(Day_02_25 2025/Day_02_25/main.cpp)
+add_executable(Day_03_25 2025/Day_03_25/main.cpp)
