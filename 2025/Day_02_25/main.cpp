@@ -8,7 +8,7 @@
 using namespace std;
 
 void read_ranges(vector<pair<long long, long long>> &ranges) {
-    ifstream file("/Users/lorena/desktop/ranges.txt");
+    ifstream file("/Users/lorena/desktop/aoc/ranges.txt");
     if (!file) {
         cout << "ho ho hhooo oof";
         return;

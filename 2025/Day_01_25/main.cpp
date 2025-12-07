@@ -7,7 +7,7 @@
 using namespace std;
 
 void read_rotations(vector<string> &rotations){
-    ifstream file("/Users/lorena/desktop/rotations.txt");
+    ifstream file("/Users/lorena/desktop/aoc/rotations.txt");
     if (!file) {
         cout << "ho ho hhooo oof";
         return;

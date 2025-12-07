@@ -7,7 +7,7 @@
 using namespace std;
 
 void read_joltage(vector<string> &joltages){
-    ifstream file("/Users/lorena/desktop/joltage.txt");
+    ifstream file("/Users/lorena/desktop/aoc/joltage.txt");
     if (!file) {
         cout << "ho ho hhooo oof";
         return;
